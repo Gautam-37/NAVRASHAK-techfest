@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAVAKSHARA | Aerospace TechFest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #00d9ff;
+            --secondary: #6c42f5;
+            --accent: #ffb800;
+            --success: #00ff88;
+            --text: #ffffff;
+            --text-muted: #b0b8c4;
+            --dark-bg: #00122b;
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 0;
+            background: rgba(10, 20, 40, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-logo i {
+            font-size: 2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-menu a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background: var(--text);
+            margin: 4px 0;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #001a3a 50%, var(--dark-bg) 100%);
+            overflow: hidden;
+        }
+
+        .hero-content {
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(0, 217, 255, 0.5); }
+            to { text-shadow: 0 0 40px rgba(108, 66, 245, 0.5), 0 0 60px rgba(0, 217, 255, 0.3); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--text-muted);
+        }
+
+        .hero-date {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 217, 255, 0.3);
+        }
+
+        /* Animated Elements */
+        .airplane, .drone, .rocket, .satellite {
+            position: absolute;
+            font-size: 2rem;
+            color: var(--primary);
+            opacity: 0.7;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .airplane {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .drone {
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .rocket {
+            bottom: 30%;
+            left: 15%;
+            animation-delay: 4s;
+        }
+
+        .satellite {
+            top: 30%;
+            right: 20%;
+            animation-delay: 1s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* Particles Background */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--primary);
+        }
+
+        /* About Section */
+        .about {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #001433 100%);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--text-muted);
+        }
+
+        .university-info {
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .university-info h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .about-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-placeholder {
+            width: 400px;
+            height: 300px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .placeholder-content {
+            text-align: center;
+            z-index: 2;
+        }
+
+        .placeholder-content i:first-child {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .placeholder-content h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .placeholder-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+        }
+
+        .placeholder-elements i {
+            position: absolute;
+            font-size: 3rem;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .placeholder-elements i:nth-child(1) {
+            top: 20%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .placeholder-elements i:nth-child(2) {
+            top: 60%;
+            right: 20%;
+            animation-delay: 1s;
+        }
+
+        .placeholder-elements i:nth-child(3) {
+            bottom: 20%;
+            left: 50%;
+            animation-delay: 2s;
+        }
+
+        /* Events Section */
+        .events {
+            background: var(--dark-bg);
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .event-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 217, 255, 0.2);
+            border-color: var(--primary);
+        }
+
+        .event-icon {
+            margin-bottom: 30px;
+        }
+
+        .event-icon i {
+            font-size: 4rem;
+            color: var(--primary);
+        }
+
+        .event-drone-image {
+            width: 100px;
+            height: 100px;
+            filter: brightness(0) saturate(100%) invert(50%) sepia(96%) saturate(2877%) hue-rotate(178deg) brightness(99%) contrast(101%);
+        }
+
+        .event-card h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .event-card p {
+            margin-bottom: 30px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Registration Section */
+        .registration {
+            background: linear-gradient(135deg, #001a3a 0%, var(--dark-bg) 100%);
+        }
+
+        .registration-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .registration-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .registration-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .registration-card.selected {
+            border-color: var(--primary);
+            background: rgba(0, 217, 255, 0.1);
+        }
+
+        .registration-icon i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .registration-card h3 {
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .registration-card p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .select-event-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .select-event-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 217, 255, 0.4);
+        }
+
+        /* Registration Form */
+        .registration-form-container {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Fix dropdown option styling */
+        .form-group select option {
+            background: var(--dark-bg);
+            color: var(--text);
+            padding: 10px;
+        }
+
+        .form-group select option:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Alternative fix for better browser compatibility */
+        .form-group select {
+            background-color: rgba(255, 255, 255, 0.05);
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300d9ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 20px;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 217, 255, 0.3);
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 2px solid var(--success);
+            border-radius: 15px;
+            color: var(--success);
+        }
+
+        .success-message h3 {
+            margin-bottom: 10px;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--dark-bg);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 30px;
+            color: var(--primary);
+            font-size: 2rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-muted);
+        }
+
+        .contact-info i {
+            color: var(--primary);
+            width: 20px;
+        }
+
+        .social-links {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--card-bg);
+            border-radius: 50%;
+            color: var(--primary);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .contact-map iframe {
+            border-radius: 15px;
+            width: 100%;
+            height: 300px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #000a1a;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .footer-logo i {
+            font-size: 2rem;
+        }
+
+        .footer h4 {
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .footer a {
+            display: block;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--primary);
+        }
+
+        .footer-newsletter form {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .footer-newsletter input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+        }
+
+        .footer-newsletter button {
+            padding: 12px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.95);
+                position: absolute;
+                top: 70px;
+                right: 20px;
+                width: 200px;
+                padding: 20px;
+                border-radius: 10px;
+                gap: 15px;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-toggle.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            .nav-toggle.active .bar:nth-child(1) {
+                transform: translateY(11px) rotate(45deg);
+            }
+
+            .nav-toggle.active .bar:nth-child(3) {
+                transform: translateY(-11px) rotate(-45deg);
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .registration-options {
+                grid-template-columns: 1fr;
+            }
+
+            .airplane, .drone, .rocket, .satellite {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-rocket"></i>
+                <span>NAVAKSHARA</span>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#events" class="nav-link">Events</a>
+                <a href="#register" class="nav-link">Register</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">NAVAKSHARA</h1>
+            <p class="hero-subtitle">Where Innovation Takes Flight</p>
+            <p class="hero-date">Sep 15-17, 2025 | CUTM Bhubaneswar</p>
+            <div class="hero-buttons">
+                <a href="#register" class="btn btn-primary">Register Now</a>
+                <a href="#events" class="btn btn-secondary">Explore Events</a>
+            </div>
+        </div>
+        
+        <div class="airplane">
+            <i class="fas fa-plane"></i>
+        </div>
+        
+        <div class="drone">
+            <i class="fas fa-helicopter"></i>
+        </div>
+        
+        <div class="rocket">
+            <i class="fas fa-rocket"></i>
+        </div>
+        
+        <div class="satellite">
+            <i class="fas fa-satellite"></i>
+        </div>
+        
+        <div id="particles-js"></div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About NAVAKSHARA</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>NAVAKSHARA is the premier aerospace techfest organized by the Aeromodeling Club of Centurion University of Technology and Management, Bhubaneswar. Our mission is to bring together the brightest minds to explore, innovate, and excel in the field of aerospace technology.</p>
+                    <p>This year, we present three exhilarating competitions: RC Plane, Drone Racing, and Robot War. Join us for three days of innovation, competition, and aerospace excellence.</p>
+                    <div class="university-info">
+                        <h3>Aerospace Department</h3>
+                        <p>Centurion University of Technology and Management, Bhubaneswar</p>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="image-placeholder">
+                        <div class="placeholder-content">
+                            <i class="fas fa-rocket"></i>
+                            <h3>NAVAKSHARA</h3>
+                            <p>Aerospace TechFest</p>
+                            <div class="placeholder-elements">
+                                <i class="fas fa-plane"></i>
+                                <i class="fas fa-helicopter"></i>
+                                <i class="fas fa-robot"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="events" class="events">
+        <div class="container">
+            <h2 class="section-title">Competitions</h2>
+            <div class="events-grid">
+                <div class="event-card" data-event="rc-plane">
+                    <div class="event-icon">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <h3>RC Plane</h3>
+                    <p>Design, build, and pilot your remote-controlled aircraft. Test your aerodynamics knowledge and precision flying skills in this thrilling competition.</p>
+                    <button class="btn btn-outline" onclick="scrollToRegister()">Learn More</button>
+                </div>
+                
+                <div class="event-card" data-event="drone-racing">
+                    <div class="event-icon">
+                        <i class="fas fa-helicopter"></i>
+                    </div>
+                    <h3>Drone Racing</h3>
+                    <p>Navigate through challenging obstacle courses at high speeds. Showcase your piloting skills and technical expertise in this fast-paced competition.</p>
+                    <button class="btn btn-outline" onclick="scrollToRegister()">Learn More</button>
+                </div>
+                
+                <div class="event-card" data-event="robot-war">
+                    <div class="event-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Robot War</h3>
+                    <p>Build and battle your combat robot in this intense competition. Demonstrate your engineering skills and strategic thinking in the arena.</p>
+                    <button class="btn btn-outline" onclick="scrollToRegister()">Learn More</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="register" class="registration">
+        <div class="container">
+            <h2 class="section-title">Register Now</h2>
+            <div class="registration-content">
+                <p style="text-align: center; margin-bottom: 30px; font-size: 1.2rem; color: var(--text-muted);">
+                    Choose your competition and fill out the registration form
+                </p>
+                
+                <div class="registration-options">
+                    <div class="registration-card event-select" data-event="rc_plane">
+                        <div class="registration-icon">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <h3>RC Plane Competition</h3>
+                        <p>Register for the RC Plane competition and showcase your aeronautical engineering skills.</p>
+                        <button class="select-event-btn" onclick="selectEvent('rc_plane')">Select This Event</button>
+                    </div>
+                    
+                    <div class="registration-card event-select" data-event="drone_racing">
+                        <div class="registration-icon">
+                            <i class="fas fa-helicopter"></i>
+                        </div>
+                        <h3>Drone Racing</h3>
+                        <p>Join the high-speed drone racing competition and test your piloting skills.</p>
+                        <button class="select-event-btn" onclick="selectEvent('drone_racing')">Select This Event</button>
+                    </div>
+                    
+                    <div class="registration-card event-select" data-event="robot_war">
+                        <div class="registration-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3>Robot War</h3>
+                        <p>Enter the Robot War competition and demonstrate your engineering prowess.</p>
+                        <button class="select-event-btn" onclick="selectEvent('robot_war')">Select This Event</button>
+                    </div>
+                </div>
+
+                <div id="registration-form" style="display: none; margin-top: 40px;">
+                    <div class="registration-form-container">
+                        <h3 id="selected-event-title" style="text-align: center; margin-bottom: 30px; color: var(--primary);"></h3>
+                        
+                        <form id="navakshara-registration-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Full Name *</label>
+                                    <input type="text" name="name" required placeholder="Enter your full name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email *</label>
+                                    <input type="email" name="email" required placeholder="your.email@example.com">
+                                </div>
+                            </div>
+                            
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Phone *</label>
+                                    <input type="tel" name="phone" required placeholder="+91 9876543210">
+                                </div>
+                                <div class="form-group">
+                                    <label>College/Institution *</label>
+                                    <input type="text" name="college" required placeholder="Your institution name">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Team Name *</label>
+                                <input type="text" name="team_name" required placeholder="Enter your team name">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Team Size *</label>
+                                <select name="team_size" id="team-size" required>
+                                    <option value="">Select team size</option>
+                                    <option value="1">1 member</option>
+                                    <option value="2">2 members</option>
+                                    <option value="3">3 members</option>
+                                    <option value="4">4 members</option>
+                                    <option value="5">5 members</option>
+                                </select>
+                            </div>
+
+                            <div id="team-members-container"></div>
+                            
+                            <input type="hidden" name="event" id="selected-event-input">
+                            
+                            <button type="submit" class="submit-btn">
+                                Complete Registration
+                            </button>
+                        </form>
+                        
+                        <div id="success-message" class="success-message">
+                            <h3>Registration Successful!</h3>
+                            <p>Thank you for registering! You will receive a confirmation email shortly.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Aerospace Department, Centurion University of Technology and Management, Bhubaneswar</p>
+                    <p><i class="fas fa-envelope"></i> info@navakshara.cutm.ac.in</p>
+                    <p><i class="fas fa-phone"></i> +91 9555555555</p>
+
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="contact-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d2302.605813092461!2d85.70603628160133!3d20.174505423850647!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sen!2sin!4v1756028911654!5m2!1sen!2sin" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-rocket"></i>
+                    <span>NAVAKSHARA</span>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#events">Events</a>
+                    <a href="#register">Register</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                
+                <div class="footer-events">
+                    <h4>Events</h4>
+                    <a href="#events">RC Plane</a>
+                    <a href="#events">Drone Racing</a>
+                    <a href="#events">Robot War</a>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h4>Stay Updated</h4>
+                    <form id="newsletter-form">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2025 NAVAKSHARA TechFest - Aeromodeling Club, CUTM Bhubaneswar. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Particles.js configuration
+        if (typeof particlesJS !== 'undefined' && document.getElementById('particles-js')) {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 }},
+                    color: { value: ['#00d9ff', '#6c42f5', '#ffb800'] },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.5, random: true, anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }},
+                    size: { value: 3, random: true, anim: { enable: true, speed: 2, size_min: 0.1, sync: false }},
+                    line_linked: { enable: true, distance: 150, color: '#ffffff', opacity: 0.3, width: 1 },
+                    move: { enable: true, speed: 1.5, direction: 'none', random: true, straight: false, out_mode: 'out', bounce: false }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: true, mode: 'push' }, resize: true },
+                    modes: { grab: { distance: 140, line_linked: { opacity: 1 }}, push: { particles_nb: 2 }}
+                },
+                retina_detect: true
+            });
+        }
+
+        // Navigation functionality
+        const navToggle = document.getElementById('nav-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        const navbar = document.getElementById('navbar');
+
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                navToggle.classList.toggle('active');
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Close mobile menu
+                    if (navMenu && navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        navToggle.classList.remove('active');
+                    }
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.style.padding = '10px 0';
+                navbar.style.background = 'rgba(10, 20, 40, 0.95)';
+            } else {
+                navbar.style.padding = '15px 0';
+                navbar.style.background = 'rgba(10, 20, 40, 0.8)';
+            }
+        });
+
+        // Animation on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.event-card, .about-image, .contact-info, .registration-card');
+            elements.forEach(element => {
+                const position = element.getBoundingClientRect();
+                if (position.top < window.innerHeight - 100) {
+                    element.style.opacity = 1;
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Registration functionality
+        function selectEvent(eventType) {
+            // Remove previous selection
+            document.querySelectorAll('.registration-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selection to clicked card
+            const selectedCard = document.querySelector(`[data-event="${eventType}"]`);
+            if (selectedCard) {
+                selectedCard.classList.add('selected');
+            }
+            
+            // Show registration form
+            const registrationForm = document.getElementById('registration-form');
+            const selectedEventTitle = document.getElementById('selected-event-title');
+            const selectedEventInput = document.getElementById('selected-event-input');
+            
+            if (registrationForm && selectedEventTitle && selectedEventInput) {
+                registrationForm.style.display = 'block';
+                selectedEventInput.value = eventType;
+                
+                const eventTitles = {
+                    'rc_plane': 'RC Plane Competition Registration',
+                    'drone_racing': 'Drone Racing Registration',
+                    'robot_war': 'Robot War Registration'
+                };
+                
+                selectedEventTitle.textContent = eventTitles[eventType] || 'Event Registration';
+                
+                // Scroll to form
+                registrationForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function scrollToRegister() {
+            document.getElementById('register').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Team members dynamic fields
+        const teamSizeSelect = document.getElementById('team-size');
+        const teamMembersContainer = document.getElementById('team-members-container');
+
+        if (teamSizeSelect && teamMembersContainer) {
+            teamSizeSelect.addEventListener('change', function() {
+                const teamSize = parseInt(this.value);
+                teamMembersContainer.innerHTML = '';
+
+                if (teamSize > 1) {
+                    for (let i = 2; i <= teamSize; i++) {
+                        const memberDiv = document.createElement('div');
+                        memberDiv.className = 'form-group';
+                        memberDiv.innerHTML = `
+                            <label>Team Member ${i} Name</label>
+                            <input type="text" name="member_${i}" placeholder="Enter team member ${i} name">
+                        `;
+                        teamMembersContainer.appendChild(memberDiv);
+                    }
+                }
+            });
+        }
+
+        // Form submission
+        const registrationForm = document.getElementById('navakshara-registration-form');
+        if (registrationForm) {
+            registrationForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form data
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData.entries());
+                
+                // Basic validation
+                if (!data.name || !data.email || !data.phone || !data.college || !data.team_name || !data.event) {
+                    alert('Please fill in all required fields.');
+                    return;
+                }
+                
+                // Email validation
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(data.email)) {
+                    alert('Please enter a valid email address.');
+                    return;
+                }
+                
+                // Phone validation
+                const phoneRegex = /^[0-9+\-\s()]{10,15}$/;
+                if (!phoneRegex.test(data.phone)) {
+                    alert('Please enter a valid phone number.');
+                    return;
+                }
+                
+                // Simulate form submission
+                const submitBtn = this.querySelector('.submit-btn');
+                submitBtn.textContent = 'Submitting...';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    // Show success message
+                    this.style.display = 'none';
+                    document.getElementById('success-message').style.display = 'block';
+                    
+                    console.log('Registration submitted:', data);
+                }, 1500);
+            });
+        }
+
+        // Newsletter form
+        const newsletterForm = document.getElementById('newsletter-form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const emailInput = this.querySelector('input[type="email"]');
+                const email = emailInput.value.trim();
+                
+                if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    alert('Thank you for subscribing to our newsletter!');
+                    emailInput.value = '';
+                } else {
+                    alert('Please enter a valid email address.');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
